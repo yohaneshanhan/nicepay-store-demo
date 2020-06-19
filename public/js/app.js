@@ -2136,17 +2136,19 @@ __webpack_require__.r(__webpack_exports__);
         billingPhone: "081234500000",
         billingName: "John Doe",
         // payMethod: "02",
-        apiVersion: ["V1 Professional", "V1 Enterprise", "V2 Redirect", "V2 Direct"],
-        env: ["Dev", "Staging", "Production"],
-        selectedapiVersion: "",
-        selectedEnv: "",
-        // listPayMethod: {
-        //     "Credit Card": [],
-        //     "Virtual Account": ["Bank Bca", "Bank Mandiri", "Bank BNI", "Bank BRI"],
-        //     "Convenience Store": ["Alfamart", "Indomaret", "Payfazz"],
-        //     "Ewallet": [{"OVOE" : "OVO"}, "Link Aja", "DANA"],
-        //     "Payloan": ["Kredivo", "Akulaku"]
-        // },
+        apiVersion: "",
+        listApiVersion: {
+          "V1 Professional": "V1_Pro",
+          "V1 Enterprise": "V1_Ent",
+          "V2": "V2"
+        },
+        env: "",
+        listEnv: {
+          "Local": "LOC",
+          "Dev": "DEV",
+          "Staging": "STG",
+          "Production": "PROD"
+        },
         listCode: "",
         payMethod: "",
         code: "",
@@ -2184,6 +2186,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.generateReferenceNo(); // this.changePayMethod();
+
+    this.request.apiVersion = 'V2';
+    this.request.env = 'PROD';
+    this.request.payMethod = '02';
   },
   methods: {
     generateReferenceNo: function generateReferenceNo() {
@@ -38241,8 +38247,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.request.selectedapiVersion,
-                            expression: "request.selectedapiVersion"
+                            value: _vm.request.apiVersion,
+                            expression: "request.apiVersion"
                           }
                         ],
                         on: {
@@ -38257,7 +38263,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.request,
-                              "selectedapiVersion",
+                              "apiVersion",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -38270,10 +38276,15 @@ var render = function() {
                           _vm._v("Select API Version")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.request.apiVersion, function(apiVer) {
-                          return _c("option", { key: apiVer }, [
-                            _vm._v(_vm._s(apiVer))
-                          ])
+                        _vm._l(_vm.request.listApiVersion, function(
+                          apiVer_key,
+                          apiVer
+                        ) {
+                          return _c(
+                            "option",
+                            { key: apiVer, domProps: { value: apiVer_key } },
+                            [_vm._v(_vm._s(apiVer))]
+                          )
                         })
                       ],
                       2
@@ -38298,8 +38309,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.request.selectedEnv,
-                            expression: "request.selectedEnv"
+                            value: _vm.request.env,
+                            expression: "request.env"
                           }
                         ],
                         on: {
@@ -38314,7 +38325,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.request,
-                              "selectedEnv",
+                              "env",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -38327,10 +38338,18 @@ var render = function() {
                           _vm._v("Select Env")
                         ]),
                         _vm._v(" "),
-                        _vm._l(_vm.request.env, function(environment) {
-                          return _c("option", { key: environment }, [
-                            _vm._v(_vm._s(environment))
-                          ])
+                        _vm._l(_vm.request.listEnv, function(
+                          environment_key,
+                          environment
+                        ) {
+                          return _c(
+                            "option",
+                            {
+                              key: environment,
+                              domProps: { value: environment_key }
+                            },
+                            [_vm._v(_vm._s(environment))]
+                          )
                         })
                       ],
                       2

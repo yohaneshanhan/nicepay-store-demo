@@ -38,6 +38,9 @@ class CheckoutController extends Controller
                 $nicepay->set('referenceNo', $referenceNo);
             }
 
+            $nicepay->set('env', $request->input('env'));
+            $nicepay->set('apiVersion', $request->input('apiVersion'));
+
             $nicepay->set('amt', $request->input('amt')); // Total gross amount
             $nicepay->set('description', 'Payment of Invoice No ' . $nicepay->get('referenceNo')); // Transaction description
             

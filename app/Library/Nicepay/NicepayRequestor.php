@@ -41,7 +41,7 @@ class NicepayRequestor {
     }
 
     public function operation ($env, $apiVersion) {
-        
+        $api = '';
         if($apiVersion == "V1_PRO"){
             $api = NICEPAY_V1PRO;
         }else if($apiVersion == "V1_ENT"){
@@ -53,13 +53,13 @@ class NicepayRequestor {
         }
 
         if($env == "DEV"){
-            $this->apiUrl = NICEPAY_DEV_ENV + $api;
+            $this->apiUrl = NICEPAY_DEV_ENV .$api;
         }else if($env == "STG"){
-            $this->apiUrl = NICEPAY_STG_ENV + $api;
+            $this->apiUrl = NICEPAY_STG_ENV .$api;
         }else if ($env == "PROD"){
-            $this->apiUrl = NICEPAY_PROD_ENV + $api;
+            $this->apiUrl = NICEPAY_PROD_ENV .$api;
         }else{
-            $this->apiUrl = NICEPAY_LOC_ENV + $api;
+            $this->apiUrl = NICEPAY_LOC_ENV .$api;
         }
 
         // if ($apiVersion == "requestVA") {

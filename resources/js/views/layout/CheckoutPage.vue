@@ -7,9 +7,9 @@
           <div class="row">
             <div class="col-md-8 mb-3">
               <div class="group">
-                <select v-model="request.selectedapiVersion" >
+                <select v-model="request.apiVersion" >
                     <option value="">Select API Version</option>
-                    <option v-for="apiVer in request.apiVersion" :key="apiVer">{{apiVer}}</option>
+                    <option v-for="(apiVer_key, apiVer) in request.listApiVersion" :value="apiVer_key" :key="apiVer">{{apiVer}}</option>
                 </select>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -18,9 +18,9 @@
             </div>  
             <div class="col-md-4 mb-3">
               <div class="group">
-                <select v-model="request.selectedEnv" >
+                <select v-model="request.env" >
                     <option value="">Select Env</option>
-                    <option v-for="environment in request.env" :key="environment">{{environment}}</option>
+                    <option v-for="(environment_key,environment) in request.listEnv" :value="environment_key" :key="environment">{{environment}}</option>
                 </select>
                 <span class="highlight"></span>
                 <span class="bar"></span>
@@ -151,10 +151,20 @@ data() {
             billingName: "John Doe",
             // payMethod: "02",
            
-            apiVersion: ["V1 Professional", "V1 Enterprise", "", "V2"],
-            env: ["Dev", "Staging", "Production"],
-            selectedapiVersion : "",
-            selectedEnv : "",
+            apiVersion : "",
+            listApiVersion: {
+              "V1 Professional" : "V1_Pro", 
+              "V1 Enterprise" : "V1_Ent",
+              "V2" : "V2"
+            },
+
+            env : "",
+            listEnv: {
+              "Local" : "LOC",
+              "Dev" : "DEV", 
+              "Staging" : "STG", 
+              "Production" : "PROD"
+            },
             
             listCode: "",
             payMethod: "",
@@ -201,6 +211,9 @@ data() {
   created() {
     this.generateReferenceNo();
     // this.changePayMethod();
+    this.request.apiVersion = 'V2';
+    this.request.env = 'PROD';
+    this.request.payMethod = '02';
   },
 
   methods: {

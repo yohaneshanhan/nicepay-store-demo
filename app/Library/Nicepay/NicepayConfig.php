@@ -56,7 +56,8 @@ define("NICEPAY_ORDER_STATUS_URL",  "https://dev.nicepay.co.id/nicepay/direct/v2
 define("NICEPAY_V1PRO",  "/nicepay/api/orderRegist.do");
 define("NICEPAY_V1ENT",  "/nicepay/api/onePass.do");
 define("NICEPAY_V1ENT_EWALLET",  "/nicepay/api/ewalletTrans.do");
-define("NICEPAY_V2_REGISTRATION",  "/nicepay/direct/v2/registration"); 
+define("NICEPAY_V2_REGISTRATION",  "/nicepay/direct/v2/registration");
+
 define("NICEPAY_V2_PAYMENT",  "/nicepay/direct/v2/payment");
 
 // CHECK & CANCEL ORDER

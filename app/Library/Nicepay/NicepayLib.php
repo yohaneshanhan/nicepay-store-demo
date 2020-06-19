@@ -56,8 +56,15 @@ class NicepayLib {
         
         $this->set('merchantKey', $this->merchantKey);
         $this->set('timeStamp', $this->get('timeStamp'));
-        $this->set('merchantToken', $this->merchantToken());
         
+        if($this->get('apiVersion') == "V1_PRO"){
+            $this->set('merchantToken', $this->merchantToken());
+        }else if ($this->get('apiVersion') == "V1_ENT"){
+            $this->set('merchantToken', $this->merchantTokenV1Ent());
+        }else if($this->get('apiVersion') == "V2"){
+            $this->set('merchantToken', $this->merchantTokenV2());
+        }
+
         Log::info('NicepayLib. timeStamp : '.$this->get('timeStamp'));
         Log::info('NicepayLib. iMid : '.$this->iMid);
         Log::info('NicepayLib. referenceNo : '.$this->get('referenceNo'));
@@ -73,13 +80,8 @@ class NicepayLib {
         $this->set('goodsNm', $this->get('description'));
         $this->set('notaxAmt', '0');
         $this->set('reqDomain', 'http://localhost/');
-
-        if ($this->get('fee')  == "") {
-            $this->set('fee', '0');
-        }
-        if ($this->get('vat')  == "") {
-            $this->set('vat', '0');
-        }
+        $this->set('fee', '0');
+        $this->set('vat', '0');
         
         if ($this->get('cartData')  == "") {
             $this->set('cartData', "{\"count\": \"1\",\"item\": [{\"img_url\": \"https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone11-select-2019-family?wid=882&amp;hei=1058&amp;fmt=jpeg&amp;qlt=80&amp;op_usm=0.5,0.5&amp;.v=1567022175704\",\"goods_name\": \" iPhone 11 \",\"goods_detail\": \"A new dual‑camera system captures more of what you see and love. The fastest chip ever in a smartphone and all‑day battery life let you do more and charge less. And the highest‑quality video in a smartphone, so your memories look better than ever.\",\"goods_amt\":" . "\"" . $this->get('amt') . "\"}]}");
@@ -87,48 +89,19 @@ class NicepayLib {
 
         Log::info('requestVA. cartData : '.$this->cartData );
 
-        // Check Parameter
-        // $this->checkParam('timeStamp', '01');
-        // $this->checkParam('iMid', '02');
-        // $this->checkParam('payMethod', '03');
-        // $this->checkParam('currency', '04');
-        // $this->checkParam('amt', '05');
-        // $this->checkParam('referenceNo', '06');
-        // $this->checkParam('goodsNm', '07');
-        // $this->checkParam('billingNm', '08');
-        // $this->checkParam('billingPhone', '09');
-        // $this->checkParam('billingEmail', '10');
-        // $this->checkParam('billingAddr', '11');
-        // $this->checkParam('billingCity', '12');
-        // $this->checkParam('billingState', '13');
-        // $this->checkParam('billingPostCd', '14');
-        // $this->checkParam('billingCountry', '15');
-        // $this->checkParam('deliveryNm', '16');
-        // $this->checkParam('deliveryPhone', '17');
-        // $this->checkParam('deliveryAddr', '18');
-        // $this->checkParam('deliveryCity', '19');
-        // $this->checkParam('deliveryState', '20');
-        // $this->checkParam('deliveryPostCd', '21');
-        // $this->checkParam('deliveryCountry', '22');
-        // $this->checkParam('dbProcessUrl', '23');
-        // $this->checkParam('vat', '24');
-        // $this->checkParam('fee', '25');
-        // $this->checkParam('notaxAmt', '26');
-        // $this->checkParam('description', '27');
-        // $this->checkParam('merchantToken', '28');
-        // $this->checkParam('reqDt', '29');
-        // $this->checkParam('reqTm', '30');
-        // $this->checkParam('userIP', '34');
-        // $this->checkParam('cartData', '38');
-        // $this->checkParam('mitraCd', '42');
-
         // Send Request
         Log::info('requestVA. Set Request Url API');
         $this->request->operation($this->get('env') , $this->get('apiVersion'));
+        Log::info('requestVA. Url API Request : ' .$this->request->apiUrl);
+        
         $this->request->openSocket();
-        Log::info('requestVA. API Request : '+ $this->request);
+        Log::info('requestVA. Open Socket Success');
+        
+        unset($this->requestData['env']);
+        unset($this->requestData['apiVersion']);
         $this->resultData = $this->request->apiRequest($this->requestData);
         Log::info('requestVA. resultData');
+        
         unset($this->requestData);
         return $this->resultData;
     }
@@ -154,7 +127,7 @@ class NicepayLib {
         $this->checkParam('merchantToken', '28');
 
         // Send Request
-        $this->request->operation('checkPaymentStatus');
+        $this->request->operation('checkPaymentStatus','a');
         $this->request->openSocket();
         $this->resultData = $this->request->apiRequest($this->requestData);
         unset($this->requestData);
@@ -177,7 +150,7 @@ class NicepayLib {
         $this->checkParam('merchantToken', '28');
 
         // Send Request
-        $this->request->operation('cancel');
+        $this->request->operation('cancel', 'a');
         $this->request->openSocket();
         $this->resultData = $this->request->apiRequest($this->requestData);
         unset($this->requestData);
@@ -192,11 +165,11 @@ class NicepayLib {
     }
 
     public function merchantToken() {
-        return hash('sha256', $this->get('timeStamp').$this->get('iMid').$this->get('referenceNo').$this->get('amt').$this->get('merchantKey'));
+        return hash('sha256', $this->get('iMid').$this->get('referenceNo').$this->get('amt').$this->get('merchantKey'));
     }
 
     public function merchantTokenV1Ent() {
-        return hash('sha256', $this->get('timeStamp').$this->get('iMid').$this->get('referenceNo').$this->get('amt').$this->get('merchantKey'));
+        return hash('sha256', $this->get('iMid').$this->get('referenceNo').$this->get('amt').$this->get('merchantKey'));
     }
 
     public function merchantTokenV2() {
