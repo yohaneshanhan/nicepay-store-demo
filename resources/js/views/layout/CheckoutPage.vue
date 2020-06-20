@@ -1,43 +1,50 @@
 <template>
   <div class="container">
     <form @submit.prevent="sendRequest">
-      <div class="row py-3">
-        <div class="col-md-4 pt-2 order-md-2 pb-2 han-layout">
-          <h4 class="mb-3">Settings</h4>
-          <div class="row">
-            <div class="col-md-8 mb-3">
-              <div class="group">
-                <select v-model="request.apiVersion" >
-                    <option value="">Select API Version</option>
+      <!-- <div class="row py-3"> -->
+      <div class="row pt-3">
+        <div class="col-md-4 han-rp order-md-2">
+          <!-- <div> -->
+          <button type = "button" v-on:click="isHidden = !isHidden" @click="$event.target.classList.toggle('colActive')"
+           class="collapsible accor-pad pt-2 pb-2 han-width han-rm btn-block han-layout colActive">Settings</button>
+          <!-- </div> -->
+          <div v-if="!isHidden" class="accor">
+            <div class="accor-pad han-layout">
+          <!-- <h4 class="mb-3">Setting</h4> -->
+          <div class="row pt-3">
+            <div class="col-md-6 mb-3">
+              <div class="han-group">
+                <select v-model="request.apiVersion">
+                    <!-- <option value="">Select API Version</option> -->
                     <option v-for="(apiVer_key, apiVer) in request.listApiVersion" :value="apiVer_key" :key="apiVer">{{apiVer}}</option>
                 </select>
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">API Version</label>
               </div>
             </div>  
-            <div class="col-md-4 mb-3">
-              <div class="group">
+            <div class="col-md-6 mb-3">
+              <div class="han-group">
                 <select v-model="request.env" >
-                    <option value="">Select Env</option>
+                    <!-- <option value="">Select Environment</option> -->
                     <option v-for="(environment_key,environment) in request.listEnv" :value="environment_key" :key="environment">{{environment}}</option>
                 </select>
-                <span class="highlight"></span>
-                <span class="bar"></span>
-                <label class="han-label">Env</label>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
+                <label class="han-label">Environment</label>
               </div>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-12 mb-3">
-              <div class="group">            
+              <div class="han-group">            
                   <select v-model="request.payMethod" >
                     <option value="">Select Pay Method</option>
                     <option v-for="(payMethods_key, payMethods) in request.listPayMethod" :value="payMethods_key" :key="payMethods">{{payMethods}}</option>
                   </select>
-                  <span class="highlight"></span>
-                  <span class="bar"></span>
+                  <span class="han-highlight"></span>
+                  <span class="han-bar"></span>
                   <label class="han-label">Payment Methods</label>
               </div>
             </div>
@@ -45,39 +52,42 @@
 
           <div class="row">
             <div class="col-md-12 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <select :disabled="request.payMethod == '01' || request.payMethod == ''" v-model="request.code" >
                   <option v-if="request.payMethod=='01' || request.payMethod == ''" value=""></option>
                   <option v-else value="">Select Bank Or Mitra</option>
                   <option v-for="(bankMitra_key, bankMitra) in request.listCode" :value="bankMitra_key" :key="bankMitra_key">{{bankMitra}}</option>
                 </select>
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Bank or Mitra</label>
               </div>
             </div>
           </div>
+          </div>
+          </div>
         </div>
         <!-- ======================================================================================= -->
 
-        <div class="col-md-8 pt-2 order-md-1 pb-2 han-layout-opacity">
+        <div class="col-md-8 pt-2 order-md-1 han-layout-opacity">
           <h4 class="mb-3">Checkout</h4>
 
           <div class="row">
             <div class="col-md-3 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.iMid" type="text" class="han-input opacity" id="iMid" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Merchant ID</label>
               </div>
             </div>
 
             <div class="col-md-9 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.merchantKey" type="text" class="han-input opacity" id="merchantKey" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <!-- <select v-model="request.apiVersion" ></select> -->
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Merchant Key</label>
               </div>
             </div>
@@ -85,26 +95,26 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.referenceNo" type="text" class="han-input opacity" id="referenceNo" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Reference Number</label>
               </div>
             </div>
             <div class="col-md-3 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.amt" type="number" class="han-input opacity" id="amt" />
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Amount</label>
               </div>
             </div>
             <div class="col-md-3 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.billingPhone" type="text" class="han-input opacity" id="billingPhone"/>
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Phone Number</label>
               </div>
             </div>
@@ -112,36 +122,93 @@
 
           <div class="row">
             <div class="col-md-6 mb-3">
-              <div class="group">
+              <div class="han-group">
                 <input v-model="request.billingName" type="text" class="han-input opacity" id="billingName" value />
-                <span class="highlight"></span>
-                <span class="bar"></span>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
                 <label class="han-label">Billing Name</label>
               </div>
             </div>
           </div>
-
           <!-- <hr class="mb-4" /> -->
           <!-- <button class="btn btn-nicepay btn-lg btn-block" type="submit">
             <i class="fa fa-credit-card"></i> Send Request
           </button> -->
-
         </div>
       </div>
+
+      
+      <div class="row pb-3">
+      <h4 v-on:click="isHidden = !isHidden">Test</h4>
+      <div v-if="!isHidden" class="accor" >
+        <div class="col-md-6 pt-2 order-md-1 pb-2 bg-dark">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="han-group">
+                <input type="text" class="han-input opacity" id="referenceNo" />
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
+                <label class="han-label">Reference Number</label>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="han-group">
+                <input  type="number" class="han-input opacity" id="amt" />
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
+                <label class="han-label">Amount</label>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="han-group">
+                <input type="text" class="han-input opacity" id="billingPhone"/>
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
+                <label class="han-label">Phone Number</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <div class="han-group">
+                <input type="text" class="han-input opacity" id="billingName" value />
+                <span class="han-highlight"></span>
+                <span class="han-bar"></span>
+                <label class="han-label">Billing Name</label>
+              </div>
+            </div>
+        </div>
+      </div>
+      </div>
+      </div>
+
       <div class="row py-12">
         <button class="btn btn-nicepay btn-lg btn-block" type="submit">
-            <i class="fa fa-credit-card"></i> Send Request
+            Send Request
         </button>
       </div>
     </form>
   </div>
+
 </template>
 <script>
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("colActive");
+  });
+}
+
 export default {
  
 data() {
     return {
       // declare message with an empty value
+      isHidden: false,
       request:{
             iMid: "IONPAYTEST",
             merchantKey: '',
@@ -214,6 +281,8 @@ data() {
     this.request.apiVersion = 'V2';
     this.request.env = 'PROD';
     this.request.payMethod = '02';
+
+    linkActiveClass: "is-active";
   },
 
   methods: {

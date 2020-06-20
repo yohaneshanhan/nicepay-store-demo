@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div class="row py-2">
-      <div class="col-md-12 order-md-1">
+    <div class="row py-3">
+      <div class="col-md-12 pt-2 order-md-1 pb-2 han-layout">
         <h4 class="mb-3">Check Status</h4>
 
         <table class="table">

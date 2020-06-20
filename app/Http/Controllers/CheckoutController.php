@@ -26,7 +26,7 @@ class CheckoutController extends Controller
         $payMethod = $request->input('payMethod');
         $referenceNo = $request->input('referenceNo');
         Log::info('requestCheckout. Start PayMethod: ' .$payMethod.' and Reference No : '.$referenceNo);
-        if (isset($payMethod) && $payMethod == '02') {
+        if (isset($payMethod)) {
             Log::info('requestCheckout. Populate Data');
             // Populate Mandatory parameters to send
             $nicepay->set('payMethod', '02');

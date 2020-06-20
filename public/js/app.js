@@ -2124,10 +2124,76 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function () {
+    this.classList.toggle("colActive");
+  });
+}
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       // declare message with an empty value
+      isHidden: false,
       request: {
         iMid: "IONPAYTEST",
         merchantKey: '',
@@ -2190,6 +2256,8 @@ __webpack_require__.r(__webpack_exports__);
     this.request.apiVersion = 'V2';
     this.request.env = 'PROD';
     this.request.payMethod = '02';
+
+    linkActiveClass: "is-active";
   },
   methods: {
     generateReferenceNo: function generateReferenceNo() {
@@ -38230,293 +38298,310 @@ var render = function() {
         }
       },
       [
-        _c("div", { staticClass: "row py-3" }, [
-          _c(
-            "div",
-            { staticClass: "col-md-4 pt-2 order-md-2 pb-2 han-layout" },
-            [
-              _c("h4", { staticClass: "mb-3" }, [_vm._v("Settings")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-8 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.request.apiVersion,
-                            expression: "request.apiVersion"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
+        _c("div", { staticClass: "row pt-3" }, [
+          _c("div", { staticClass: "col-md-4 han-rp order-md-2" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "collapsible accor-pad pt-2 pb-2 han-width han-rm btn-block han-layout colActive",
+                attrs: { type: "button" },
+                on: {
+                  click: [
+                    function($event) {
+                      _vm.isHidden = !_vm.isHidden
+                    },
+                    function($event) {
+                      return $event.target.classList.toggle("colActive")
+                    }
+                  ]
+                }
+              },
+              [_vm._v("Settings")]
+            ),
+            _vm._v(" "),
+            !_vm.isHidden
+              ? _c("div", { staticClass: "accor" }, [
+                  _c("div", { staticClass: "accor-pad han-layout" }, [
+                    _c("div", { staticClass: "row pt-3" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.request.apiVersion,
+                                  expression: "request.apiVersion"
+                                }
+                              ],
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.request,
+                                    "apiVersion",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.request.listApiVersion, function(
+                              apiVer_key,
+                              apiVer
+                            ) {
+                              return _c(
+                                "option",
+                                {
+                                  key: apiVer,
+                                  domProps: { value: apiVer_key }
+                                },
+                                [_vm._v(_vm._s(apiVer))]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("API Version")
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.request.env,
+                                  expression: "request.env"
+                                }
+                              ],
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.request,
+                                    "env",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            _vm._l(_vm.request.listEnv, function(
+                              environment_key,
+                              environment
+                            ) {
+                              return _c(
+                                "option",
+                                {
+                                  key: environment,
+                                  domProps: { value: environment_key }
+                                },
+                                [_vm._v(_vm._s(environment))]
+                              )
+                            }),
+                            0
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Environment")
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.request.payMethod,
+                                  expression: "request.payMethod"
+                                }
+                              ],
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.request,
+                                    "payMethod",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Pay Method")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.request.listPayMethod, function(
+                                payMethods_key,
+                                payMethods
+                              ) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: payMethods,
+                                    domProps: { value: payMethods_key }
+                                  },
+                                  [_vm._v(_vm._s(payMethods))]
+                                )
                               })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Payment Methods")
+                          ])
+                        ])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-12 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c(
+                            "select",
+                            {
+                              directives: [
+                                {
+                                  name: "model",
+                                  rawName: "v-model",
+                                  value: _vm.request.code,
+                                  expression: "request.code"
+                                }
+                              ],
+                              attrs: {
+                                disabled:
+                                  _vm.request.payMethod == "01" ||
+                                  _vm.request.payMethod == ""
+                              },
+                              on: {
+                                change: function($event) {
+                                  var $$selectedVal = Array.prototype.filter
+                                    .call($event.target.options, function(o) {
+                                      return o.selected
+                                    })
+                                    .map(function(o) {
+                                      var val =
+                                        "_value" in o ? o._value : o.value
+                                      return val
+                                    })
+                                  _vm.$set(
+                                    _vm.request,
+                                    "code",
+                                    $event.target.multiple
+                                      ? $$selectedVal
+                                      : $$selectedVal[0]
+                                  )
+                                }
+                              }
+                            },
+                            [
+                              _vm.request.payMethod == "01" ||
+                              _vm.request.payMethod == ""
+                                ? _c("option", { attrs: { value: "" } })
+                                : _c("option", { attrs: { value: "" } }, [
+                                    _vm._v("Select Bank Or Mitra")
+                                  ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.request.listCode, function(
+                                bankMitra_key,
+                                bankMitra
+                              ) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: bankMitra_key,
+                                    domProps: { value: bankMitra_key }
+                                  },
+                                  [_vm._v(_vm._s(bankMitra))]
+                                )
                               })
-                            _vm.$set(
-                              _vm.request,
-                              "apiVersion",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select API Version")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.request.listApiVersion, function(
-                          apiVer_key,
-                          apiVer
-                        ) {
-                          return _c(
-                            "option",
-                            { key: apiVer, domProps: { value: apiVer_key } },
-                            [_vm._v(_vm._s(apiVer))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("API Version")
+                            ],
+                            2
+                          ),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Bank or Mitra")
+                          ])
+                        ])
+                      ])
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-4 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.request.env,
-                            expression: "request.env"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.request,
-                              "env",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select Env")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.request.listEnv, function(
-                          environment_key,
-                          environment
-                        ) {
-                          return _c(
-                            "option",
-                            {
-                              key: environment,
-                              domProps: { value: environment_key }
-                            },
-                            [_vm._v(_vm._s(environment))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [_vm._v("Env")])
-                  ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.request.payMethod,
-                            expression: "request.payMethod"
-                          }
-                        ],
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.request,
-                              "payMethod",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Select Pay Method")
-                        ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.request.listPayMethod, function(
-                          payMethods_key,
-                          payMethods
-                        ) {
-                          return _c(
-                            "option",
-                            {
-                              key: payMethods,
-                              domProps: { value: payMethods_key }
-                            },
-                            [_vm._v(_vm._s(payMethods))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Payment Methods")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-12 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
-                    _c(
-                      "select",
-                      {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.request.code,
-                            expression: "request.code"
-                          }
-                        ],
-                        attrs: {
-                          disabled:
-                            _vm.request.payMethod == "01" ||
-                            _vm.request.payMethod == ""
-                        },
-                        on: {
-                          change: function($event) {
-                            var $$selectedVal = Array.prototype.filter
-                              .call($event.target.options, function(o) {
-                                return o.selected
-                              })
-                              .map(function(o) {
-                                var val = "_value" in o ? o._value : o.value
-                                return val
-                              })
-                            _vm.$set(
-                              _vm.request,
-                              "code",
-                              $event.target.multiple
-                                ? $$selectedVal
-                                : $$selectedVal[0]
-                            )
-                          }
-                        }
-                      },
-                      [
-                        _vm.request.payMethod == "01" ||
-                        _vm.request.payMethod == ""
-                          ? _c("option", { attrs: { value: "" } })
-                          : _c("option", { attrs: { value: "" } }, [
-                              _vm._v("Select Bank Or Mitra")
-                            ]),
-                        _vm._v(" "),
-                        _vm._l(_vm.request.listCode, function(
-                          bankMitra_key,
-                          bankMitra
-                        ) {
-                          return _c(
-                            "option",
-                            {
-                              key: bankMitra_key,
-                              domProps: { value: bankMitra_key }
-                            },
-                            [_vm._v(_vm._s(bankMitra))]
-                          )
-                        })
-                      ],
-                      2
-                    ),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Bank or Mitra")
-                    ])
-                  ])
-                ])
-              ])
-            ]
-          ),
+              : _vm._e()
+          ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "col-md-8 pt-2 order-md-1 pb-2 han-layout-opacity" },
+            { staticClass: "col-md-8 pt-2 order-md-1 han-layout-opacity" },
             [
               _c("h4", { staticClass: "mb-3" }, [_vm._v("Checkout")]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38539,9 +38624,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Merchant ID")
@@ -38550,7 +38635,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-9 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38577,9 +38662,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Merchant Key")
@@ -38590,7 +38675,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38617,9 +38702,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Reference Number")
@@ -38628,7 +38713,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38651,9 +38736,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Amount")
@@ -38662,7 +38747,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38689,9 +38774,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Phone Number")
@@ -38702,7 +38787,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
                 _c("div", { staticClass: "col-md-6 mb-3" }, [
-                  _c("div", { staticClass: "group" }, [
+                  _c("div", { staticClass: "han-group" }, [
                     _c("input", {
                       directives: [
                         {
@@ -38729,9 +38814,9 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "highlight" }),
+                    _c("span", { staticClass: "han-highlight" }),
                     _vm._v(" "),
-                    _c("span", { staticClass: "bar" }),
+                    _c("span", { staticClass: "han-bar" }),
                     _vm._v(" "),
                     _c("label", { staticClass: "han-label" }, [
                       _vm._v("Billing Name")
@@ -38743,12 +38828,102 @@ var render = function() {
           )
         ]),
         _vm._v(" "),
-        _vm._m(0)
+        _c("div", { staticClass: "row pb-3" }, [
+          _c(
+            "h4",
+            {
+              on: {
+                click: function($event) {
+                  _vm.isHidden = !_vm.isHidden
+                }
+              }
+            },
+            [_vm._v("Test")]
+          ),
+          _vm._v(" "),
+          !_vm.isHidden
+            ? _c("div", { staticClass: "accor" }, [_vm._m(0)])
+            : _vm._e()
+        ]),
+        _vm._v(" "),
+        _vm._m(1)
       ]
     )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-6 pt-2 order-md-1 pb-2 bg-dark" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 mb-3" }, [
+          _c("div", { staticClass: "han-group" }, [
+            _c("input", {
+              staticClass: "han-input opacity",
+              attrs: { type: "text", id: "referenceNo" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-bar" }),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-label" }, [
+              _vm._v("Reference Number")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 mb-3" }, [
+          _c("div", { staticClass: "han-group" }, [
+            _c("input", {
+              staticClass: "han-input opacity",
+              attrs: { type: "number", id: "amt" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-bar" }),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-label" }, [_vm._v("Amount")])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-3 mb-3" }, [
+          _c("div", { staticClass: "han-group" }, [
+            _c("input", {
+              staticClass: "han-input opacity",
+              attrs: { type: "text", id: "billingPhone" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-bar" }),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-label" }, [_vm._v("Phone Number")])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-6 mb-3" }, [
+          _c("div", { staticClass: "han-group" }, [
+            _c("input", {
+              staticClass: "han-input opacity",
+              attrs: { type: "text", id: "billingName", value: "" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-highlight" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "han-bar" }),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-label" }, [_vm._v("Billing Name")])
+          ])
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -38760,10 +38935,7 @@ var staticRenderFns = [
           staticClass: "btn btn-nicepay btn-lg btn-block",
           attrs: { type: "submit" }
         },
-        [
-          _c("i", { staticClass: "fa fa-credit-card" }),
-          _vm._v(" Send Request\n      ")
-        ]
+        [_vm._v("\n          Send Request\n      ")]
       )
     ])
   }
@@ -38790,8 +38962,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row py-2" }, [
-      _c("div", { staticClass: "col-md-12 order-md-1" }, [
+    _c("div", { staticClass: "row py-3" }, [
+      _c("div", { staticClass: "col-md-12 pt-2 order-md-1 pb-2 han-layout" }, [
         _c("h4", { staticClass: "mb-3" }, [_vm._v("Check Status")]),
         _vm._v(" "),
         _c("table", { staticClass: "table" }, [
@@ -38922,7 +39094,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "row py-2" }, [
+    _c("div", { staticClass: "row py-3" }, [
       _c("div", { staticClass: "col-md-6 pt-2 order-md-1 pb-2 han-layout" }, [
         _c("h4", { staticClass: "mb-3" }, [
           _vm._v("Thank You and Have a Nicepay !")
@@ -38930,7 +39102,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-4 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -38955,14 +39127,14 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [_vm._v("Result Code")])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -38987,7 +39159,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [
                 _vm._v("Result Message")
@@ -38998,7 +39170,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-12 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -39023,7 +39195,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [
                 _vm._v("Transaction ID")
@@ -39034,7 +39206,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-4 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -39059,14 +39231,14 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [_vm._v("Bank")])
             ])
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-8 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -39091,16 +39263,18 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
-              _c("label", { staticClass: "han-label" }, [_vm._v("VA Number")])
+              _c("label", { staticClass: "han-label" }, [
+                _vm._v("VA Number & PayNo")
+              ])
             ])
           ])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "row" }, [
           _c("div", { staticClass: "col-md-6 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -39125,7 +39299,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [
                 _vm._v("Expired Date")
@@ -39134,7 +39308,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "col-md-6 mb-3" }, [
-            _c("div", { staticClass: "group" }, [
+            _c("div", { staticClass: "han-group" }, [
               _c("input", {
                 directives: [
                   {
@@ -39159,7 +39333,7 @@ var render = function() {
               _vm._v(" "),
               _c("span", { staticClass: "highlight" }),
               _vm._v(" "),
-              _c("span", { staticClass: "bar" }),
+              _c("span", { staticClass: "han-bar" }),
               _vm._v(" "),
               _c("label", { staticClass: "han-label" }, [
                 _vm._v("Expired Time")
