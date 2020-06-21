@@ -5,6 +5,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
+@font-face {
+    font-family: 'Lovelo';
+    src: url('../font-lovelo/Lovelo-Black.eot');
+    src: url("../dist/font-lovelo/Lovelo-Black.woff") format("woff"), url("../assets/dist/font-lovelo/Lovelo-Black.otf") format("opentype") url("../assets/dist/font-lovelo/Lovelo-Black.svg#filename") format("svg");
+    /* font-weight: normal;
+    font-style: normal; */
+}
+
 :root {
     --blue: #007bff;
     --indigo: #6610f2;
@@ -85,8 +93,8 @@ section {
 body {
     margin: 0;
     font-family: 'Nunito', sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: 14px;
+    font-weight: bold;
     line-height: 1.5;
     color: #212529;
     text-align: left;
@@ -108,7 +116,7 @@ body {
 }
 
 .collapsible {
-    background-color: #fff !important;
+    background-color: #ebf6f5 !important;
     color: #5cbdb9;
     cursor: pointer;
     /* padding: 18px; */
@@ -118,7 +126,7 @@ body {
     outline: none;
     /* font-size: inherit ; */
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: normal;
     text-rendering: auto;
@@ -126,6 +134,7 @@ body {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    display: relative;
 }
 
 .colActive {
@@ -133,7 +142,7 @@ body {
 }
 
 .collapsible:hover {
-    background-color: #fbe3e8 !important;
+    background-color: #fff !important;
 }
 
 .collapsible:after {
@@ -165,7 +174,7 @@ body {
 
 .han-input,
 select {
-    font-size: 16px;
+    font-size: 14px;
     padding: 10px 0px 10px 0px;
     display: block;
     width: 100%;
@@ -192,7 +201,7 @@ select:focus {
 
 .han-label {
     color: #999;
-    font-size: 16px;
+    /* font-size: 14px; */
     font-weight: bold;
     position: absolute;
     pointer-events: none;
@@ -204,6 +213,11 @@ select:focus {
     -webkit-transition: 0.2s ease all;
 }
 
+.han-font-size {
+    display: inline-block;
+    font-size: 16px;
+}
+
 
 /* active state */
 
@@ -212,7 +226,7 @@ select:focus {
 select:focus~.han-label,
 select:valid~.han-label {
     top: -20px;
-    font-size: 16px;
+    /* font-size: 16px; */
     /* color:#4CE2AB; */
     /* color:#00b5ad; */
     color: #5cbdb9;
@@ -314,6 +328,14 @@ select[type="text"]:focus~.han-bar:after {
     padding: 0px !important;
 }
 
+.han-pr {
+    padding-right: 15px !important;
+}
+
+.han-width-full {
+    max-width: 100% !important;
+}
+
 
 /* ====== COLORING ====== */
 
@@ -349,6 +371,9 @@ select[type="text"]:focus~.han-bar:after {
     opacity: 0.25;
 }
 
+
+/* ====== NAVIGATION ====== */
+
 .nav {
     display: flex;
     flex-wrap: wrap;
@@ -360,8 +385,10 @@ select[type="text"]:focus~.han-bar:after {
 .nav-link {
     display: block;
     /* padding: 0.5rem 1rem; */
-    font-family: 'Montserrat', sans-serif !important;
+    /* font-family: 'Montserrat', sans-serif !important; */
     /* font-family: Metropolis,sans-serif !important; */
+    /* font-family: 'Rubik', sans-serif !important; */
+    font-size: 20px;
     font-weight: 600;
     letter-spacing: 0;
 }
@@ -382,9 +409,10 @@ select[type="text"]:focus~.han-bar:after {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 1rem;
+    padding: 0rem 1rem;
     /* border-bottom:1px solid; */
     box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.1);
+    /* font-family: 'Rubik', sans-serif !important; */
 }
 
 .navbar>.container,
@@ -402,11 +430,13 @@ select[type="text"]:focus~.han-bar:after {
     margin-right: 1rem;
     /* font-size: 1.25rem; */
     font-size: 20px;
-    font-weight: 600;
+    font-weight: bold;
     line-height: inherit;
     white-space: nowrap;
-    font-family: 'Montserrat', sans-serif !important;
+    /* font-family: 'Montserrat', sans-serif !important; */
+    /* font-family: 'Lovelo', 'Mont', 'Fontfabric-Notdef', sans-serif !important; */
     /* font-family : Metropolis,sans-serif !important; */
+    /* font-family: 'Rubik', sans-serif !important; */
     color: #000 !important;
 }
 
@@ -427,7 +457,7 @@ select[type="text"]:focus~.han-bar:after {
     padding-right: 0 !important;
     padding-left: 0 !important;
     margin-left: 1rem !important;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .navbar-nav .dropdown-menu {
@@ -473,6 +503,61 @@ select[type="text"]:focus~.han-bar:after {
     content: "";
     background: no-repeat center center;
     background-size: 100% 100%;
+}
+
+
+/* ====== TOGGLE ====== */
+
+.switch {
+    position: relative;
+    display: inline-block;
+    /* vertical-align: -webkit-baseline-middle; */
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 12px;
+    width: 12px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(20px);
+    -ms-transform: translateX(20px);
+    transform: translateX(20px);
 }
 
 
@@ -714,7 +799,8 @@ h3,
 
 h4,
 .h4 {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -817,6 +903,35 @@ a>code {
         max-width: 1140px;
     }
 }
+
+.container-navbar {
+    width: 100%;
+}
+
+
+/* @media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        max-width: 1140px;
+    }
+} */
 
 .container-fluid {
     width: 100%;

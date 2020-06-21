@@ -2180,6 +2180,105 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var coll = document.getElementsByClassName("collapsible");
 var i;
 
@@ -2194,10 +2293,12 @@ for (i = 0; i < coll.length; i++) {
     return {
       // declare message with an empty value
       isHidden: false,
+      isHidden2: false,
+      isHidden3: true,
       request: {
         iMid: "IONPAYTEST",
-        merchantKey: '',
-        referenceNo: '',
+        merchantKey: "",
+        referenceNo: "",
         amt: "50",
         billingPhone: "081234500000",
         billingName: "John Doe",
@@ -2206,14 +2307,14 @@ for (i = 0; i < coll.length; i++) {
         listApiVersion: {
           "V1 Professional": "V1_Pro",
           "V1 Enterprise": "V1_Ent",
-          "V2": "V2"
+          V2: "V2"
         },
         env: "",
         listEnv: {
-          "Local": "LOC",
-          "Dev": "DEV",
-          "Staging": "STG",
-          "Production": "PROD"
+          Local: "LOC",
+          Dev: "DEV",
+          Staging: "STG",
+          Production: "PROD"
         },
         listCode: "",
         payMethod: "",
@@ -2222,8 +2323,8 @@ for (i = 0; i < coll.length; i++) {
           "Credit Card": "01",
           "Virtual Account": "02",
           "Convenience Store": "03",
-          "Ewallet": "05",
-          "Payloan": "06"
+          Ewallet: "05",
+          Payloan: "06"
         },
         vaList: {
           "Bank BCA": "CENA",
@@ -2234,18 +2335,18 @@ for (i = 0; i < coll.length; i++) {
           "Bank Permata": "BBBA"
         },
         cvsList: {
-          "Indomaret": "INDO",
-          "Alfamart": "ALFA",
-          "Payfazz": "PAYF"
+          Indomaret: "INDO",
+          Alfamart: "ALFA",
+          Payfazz: "PAYF"
         },
         ewalletList: {
-          "OVO": "OVEO",
+          OVO: "OVEO",
           "Link Aja": "LINK",
-          "DANA": "DANA"
+          DANA: "DANA"
         },
         payloanList: {
-          "Kredivo": "KDVI",
-          "Akulaku": "AKLP"
+          Kredivo: "KDVI",
+          Akulaku: "AKLP"
         }
       }
     };
@@ -2253,26 +2354,26 @@ for (i = 0; i < coll.length; i++) {
   created: function created() {
     this.generateReferenceNo(); // this.changePayMethod();
 
-    this.request.apiVersion = 'V2';
-    this.request.env = 'PROD';
-    this.request.payMethod = '02';
+    this.request.apiVersion = "V2";
+    this.request.env = "PROD";
+    this.request.payMethod = "02";
 
     linkActiveClass: "is-active";
   },
   methods: {
     generateReferenceNo: function generateReferenceNo() {
-      this.request.referenceNo = 'NCPY-' + Math.floor(100000000 + Math.random() * 9000000000);
+      this.request.referenceNo = "NCPY-" + Math.floor(100000000 + Math.random() * 9000000000);
     },
     sendRequest: function sendRequest() {
       var _this = this;
 
-      var uri = 'http://localhost:8000/sendRequestCheckout';
+      var uri = "http://localhost:8000/sendRequestCheckout";
       axios.post(uri, this.request).then(function (response) {
         console.log(response); //  this.$router.push({name: 'result', params: {resultCd:response.data[0].resultCd, resultMsg:response.data[0].resultMsg}});
 
         if (response) {
           _this.$router.push({
-            name: 'result',
+            name: "result",
             params: {
               response: response.data[0]
             }
@@ -2281,13 +2382,13 @@ for (i = 0; i < coll.length; i++) {
       })["catch"](function (error) {
         // this.validation = error.response.data.data; //response validation
         _this.$router.push({
-          name: 'otherError'
+          name: "otherError"
         });
       });
     }
   },
   watch: {
-    'request.payMethod': function requestPayMethod() {
+    "request.payMethod": function requestPayMethod() {
       // Clear previously selected values
       this.request.listCode = [];
       this.request.code = ""; // Populate list of countries in the second dropdown
@@ -38299,7 +38400,7 @@ var render = function() {
       },
       [
         _c("div", { staticClass: "row pt-3" }, [
-          _c("div", { staticClass: "col-md-4 han-rp order-md-2" }, [
+          _c("div", { staticClass: "col-md-4 order-md-2 han-rp" }, [
             _c(
               "button",
               {
@@ -38358,20 +38459,26 @@ var render = function() {
                                 }
                               }
                             },
-                            _vm._l(_vm.request.listApiVersion, function(
-                              apiVer_key,
-                              apiVer
-                            ) {
-                              return _c(
-                                "option",
-                                {
-                                  key: apiVer,
-                                  domProps: { value: apiVer_key }
-                                },
-                                [_vm._v(_vm._s(apiVer))]
-                              )
-                            }),
-                            0
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select API Version")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.request.listApiVersion, function(
+                                apiVer_key,
+                                apiVer
+                              ) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: apiVer,
+                                    domProps: { value: apiVer_key }
+                                  },
+                                  [_vm._v(_vm._s(apiVer))]
+                                )
+                              })
+                            ],
+                            2
                           ),
                           _vm._v(" "),
                           _c("span", { staticClass: "han-highlight" }),
@@ -38418,20 +38525,26 @@ var render = function() {
                                 }
                               }
                             },
-                            _vm._l(_vm.request.listEnv, function(
-                              environment_key,
-                              environment
-                            ) {
-                              return _c(
-                                "option",
-                                {
-                                  key: environment,
-                                  domProps: { value: environment_key }
-                                },
-                                [_vm._v(_vm._s(environment))]
-                              )
-                            }),
-                            0
+                            [
+                              _c("option", { attrs: { value: "" } }, [
+                                _vm._v("Select Environment")
+                              ]),
+                              _vm._v(" "),
+                              _vm._l(_vm.request.listEnv, function(
+                                environment_key,
+                                environment
+                              ) {
+                                return _c(
+                                  "option",
+                                  {
+                                    key: environment,
+                                    domProps: { value: environment_key }
+                                  },
+                                  [_vm._v(_vm._s(environment))]
+                                )
+                              })
+                            ],
+                            2
                           ),
                           _vm._v(" "),
                           _c("span", { staticClass: "han-highlight" }),
@@ -38593,257 +38706,299 @@ var render = function() {
               : _vm._e()
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "col-md-8 pt-2 order-md-1 han-layout-opacity" },
-            [
-              _c("h4", { staticClass: "mb-3" }, [_vm._v("Checkout")]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.iMid,
-                          expression: "request.iMid"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "text", id: "iMid" },
-                      domProps: { value: _vm.request.iMid },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.request, "iMid", $event.target.value)
-                        }
-                      }
-                    }),
+          _c("div", { staticClass: "col-md-8 order-md-1 han-rp han-pr" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "collapsible accor-pad pt-2 pb-2 han-width han-rm btn-block han-layout colActive",
+                attrs: { type: "button" },
+                on: {
+                  click: [
+                    function($event) {
+                      _vm.isHidden2 = !_vm.isHidden2
+                    },
+                    function($event) {
+                      return $event.target.classList.toggle("colActive")
+                    }
+                  ]
+                }
+              },
+              [_vm._v("Checkout")]
+            ),
+            _vm._v(" "),
+            !_vm.isHidden2
+              ? _c("div", { staticClass: "accor" }, [
+                  _c("div", { staticClass: "accor-pad han-layout" }, [
+                    _c("div", { staticClass: "row pt-3" }, [
+                      _c("div", { staticClass: "col-md-3 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.iMid,
+                                expression: "request.iMid"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: { type: "text", id: "iMid" },
+                            domProps: { value: _vm.request.iMid },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "iMid",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Merchant ID")
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-9 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.merchantKey,
+                                expression: "request.merchantKey"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: { type: "text", id: "merchantKey" },
+                            domProps: { value: _vm.request.merchantKey },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "merchantKey",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Merchant Key")
+                          ])
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.referenceNo,
+                                expression: "request.referenceNo"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: { type: "text", id: "referenceNo" },
+                            domProps: { value: _vm.request.referenceNo },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "referenceNo",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Reference Number")
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.amt,
+                                expression: "request.amt"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: { type: "number", id: "amt" },
+                            domProps: { value: _vm.request.amt },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "amt",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Amount")
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col-md-3 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.billingPhone,
+                                expression: "request.billingPhone"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: { type: "text", id: "billingPhone" },
+                            domProps: { value: _vm.request.billingPhone },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "billingPhone",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Phone Number")
+                          ])
+                        ])
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Merchant ID")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-9 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.merchantKey,
-                          expression: "request.merchantKey"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "text", id: "merchantKey" },
-                      domProps: { value: _vm.request.merchantKey },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.request,
-                            "merchantKey",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Merchant Key")
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col-md-6 mb-3" }, [
+                        _c("div", { staticClass: "han-group" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.request.billingName,
+                                expression: "request.billingName"
+                              }
+                            ],
+                            staticClass: "han-input opacity",
+                            attrs: {
+                              type: "text",
+                              id: "billingName",
+                              value: ""
+                            },
+                            domProps: { value: _vm.request.billingName },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.request,
+                                  "billingName",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-highlight" }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "han-bar" }),
+                          _vm._v(" "),
+                          _c("label", { staticClass: "han-label" }, [
+                            _vm._v("Billing Name")
+                          ])
+                        ])
+                      ])
                     ])
                   ])
                 ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.referenceNo,
-                          expression: "request.referenceNo"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "text", id: "referenceNo" },
-                      domProps: { value: _vm.request.referenceNo },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.request,
-                            "referenceNo",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Reference Number")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.amt,
-                          expression: "request.amt"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "number", id: "amt" },
-                      domProps: { value: _vm.request.amt },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.request, "amt", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Amount")
-                    ])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-3 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.billingPhone,
-                          expression: "request.billingPhone"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "text", id: "billingPhone" },
-                      domProps: { value: _vm.request.billingPhone },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.request,
-                            "billingPhone",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Phone Number")
-                    ])
-                  ])
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6 mb-3" }, [
-                  _c("div", { staticClass: "han-group" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.request.billingName,
-                          expression: "request.billingName"
-                        }
-                      ],
-                      staticClass: "han-input opacity",
-                      attrs: { type: "text", id: "billingName", value: "" },
-                      domProps: { value: _vm.request.billingName },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.request,
-                            "billingName",
-                            $event.target.value
-                          )
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-highlight" }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "han-bar" }),
-                    _vm._v(" "),
-                    _c("label", { staticClass: "han-label" }, [
-                      _vm._v("Billing Name")
-                    ])
-                  ])
-                ])
-              ])
-            ]
-          )
+              : _vm._e()
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "row pb-3" }, [
-          _c(
-            "h4",
-            {
-              on: {
-                click: function($event) {
-                  _vm.isHidden = !_vm.isHidden
+        _c("div", { staticClass: "row py-3" }, [
+          _c("div", { staticClass: "col-md-6 order-md-1 han-rp han-layout" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "collapsible accor-pad pt-2 pb-2 han-width han-rm btn-block han-layout",
+                attrs: { type: "button" },
+                on: {
+                  click: [
+                    function($event) {
+                      _vm.isHidden3 = !_vm.isHidden3
+                    },
+                    function($event) {
+                      return $event.target.classList.toggle("colActive")
+                    }
+                  ]
                 }
-              }
-            },
-            [_vm._v("Test")]
-          ),
-          _vm._v(" "),
-          !_vm.isHidden
-            ? _c("div", { staticClass: "accor" }, [_vm._m(0)])
-            : _vm._e()
+              },
+              [_vm._v("Additional Info")]
+            ),
+            _vm._v(" "),
+            !_vm.isHidden3
+              ? _c("div", { staticClass: "accor" }, [_vm._m(0)])
+              : _vm._e()
+          ])
         ]),
         _vm._v(" "),
         _vm._m(1)
@@ -38856,69 +39011,103 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-6 pt-2 order-md-1 pb-2 bg-dark" }, [
+    return _c("div", { staticClass: "accor-pad han-layout" }, [
       _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 mb-3" }, [
+        _c("div", { staticClass: "col-md-6" }, [
           _c("div", { staticClass: "han-group" }, [
-            _c("input", {
-              staticClass: "han-input opacity",
-              attrs: { type: "text", id: "referenceNo" }
-            }),
+            _c("input", { attrs: { type: "checkbox" } }),
             _vm._v(" "),
-            _c("span", { staticClass: "han-highlight" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "han-bar" }),
-            _vm._v(" "),
-            _c("label", { staticClass: "han-label" }, [
-              _vm._v("Reference Number")
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Select All")
             ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mb-3" }, [
-          _c("div", { staticClass: "han-group" }, [
-            _c("input", {
-              staticClass: "han-input opacity",
-              attrs: { type: "number", id: "amt" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "han-highlight" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "han-bar" }),
-            _vm._v(" "),
-            _c("label", { staticClass: "han-label" }, [_vm._v("Amount")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3 mb-3" }, [
-          _c("div", { staticClass: "han-group" }, [
-            _c("input", {
-              staticClass: "han-input opacity",
-              attrs: { type: "text", id: "billingPhone" }
-            }),
-            _vm._v(" "),
-            _c("span", { staticClass: "han-highlight" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "han-bar" }),
-            _vm._v(" "),
-            _c("label", { staticClass: "han-label" }, [_vm._v("Phone Number")])
           ])
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6 mb-3" }, [
-          _c("div", { staticClass: "han-group" }, [
-            _c("input", {
-              staticClass: "han-input opacity",
-              attrs: { type: "text", id: "billingName", value: "" }
-            }),
+      _c("div", { staticClass: "row mb-3" }, [
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
             _vm._v(" "),
-            _c("span", { staticClass: "han-highlight" }),
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing Email")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
             _vm._v(" "),
-            _c("span", { staticClass: "han-bar" }),
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing Addres")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
             _vm._v(" "),
-            _c("label", { staticClass: "han-label" }, [_vm._v("Billing Name")])
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing City")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row mb-3" }, [
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing State")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing Post")
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-4" }, [
+          _c("div", { staticClass: "han-group han-rm" }, [
+            _c("label", { staticClass: "switch" }, [
+              _c("input", { attrs: { type: "checkbox" } }),
+              _vm._v(" "),
+              _c("span", { staticClass: "slider" })
+            ]),
+            _vm._v(" "),
+            _c("label", { staticClass: "han-font-size" }, [
+              _vm._v("Billing Country")
+            ])
           ])
         ])
       ])
@@ -38935,7 +39124,7 @@ var staticRenderFns = [
           staticClass: "btn btn-nicepay btn-lg btn-block",
           attrs: { type: "submit" }
         },
-        [_vm._v("\n          Send Request\n      ")]
+        [_vm._v("Send Request")]
       )
     ])
   }
@@ -39424,7 +39613,7 @@ var render = function() {
         "nav",
         { staticClass: "navbar navbar-expand-md navbar-light bg-light" },
         [
-          _c("div", { staticClass: "container" }, [
+          _c("div", { staticClass: "container han-rm han-width-full" }, [
             _vm._m(0),
             _vm._v(" "),
             _c("a", { staticClass: "navbar-brand" }, [

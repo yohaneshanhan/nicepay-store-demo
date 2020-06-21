@@ -3,7 +3,7 @@
     <!-- header -->
     <header id="header">
       <nav class="navbar navbar-expand-md navbar-light bg-light">
-        <div class="container">
+        <div class="container han-rm han-width-full">
           <a class="navbar-brand" href="#" id="header-logo">
             <img
               src="assets/img/nicepay_logo.jpg"
