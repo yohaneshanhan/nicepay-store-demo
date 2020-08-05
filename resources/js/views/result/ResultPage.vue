@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-md-4 mb-3">
             <div class="han-group">
-              <input v-model="response.resultCd" type="text" class="han-input" id="resultCd" />
+              <input :value="response.resultCd | this.$route.params.id" type="text" class="han-input" id="resultCd" />
               <span class="highlight"></span>
               <span class="han-bar"></span>
               <label class="han-label">Result Code</label>

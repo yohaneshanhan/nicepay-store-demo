@@ -11,8 +11,8 @@ class CheckoutController extends Controller
 
     public function requestCheckout(Request $request)
     {
-       
-        $nicepay = new NicepayLib();     
+
+        $nicepay = new NicepayLib();
 
         function generateReference()
         {
@@ -23,9 +23,23 @@ class CheckoutController extends Controller
             return "Ref" . $date . $date_array[0] . rand(100, 999);
         }
 
+        function billingCategory($nicepay, $request)
+        {
+            // Billing Category
+            $nicepay->set('billingNm', $request->input('billingName')); // Customer name
+            $nicepay->set('billingPhone', $request->input('billingPhone')); // Customer phone number
+            $nicepay->set('billingEmail', in_array("billingEmail", $request->input('billing')) ? 'john@example.com' : ''); // Customer Email
+            $nicepay->set('billingAddr', in_array("billingAddr", $request->input('billing')) ? 'Jl. Jend. Sudirman No. 28' : '');
+            $nicepay->set('billingCity', in_array("billingCity", $request->input('billing')) ? 'Jakarta Selatan' : '');
+            $nicepay->set('billingState', in_array("billingState", $request->input('billing')) ? 'DKI Jakarta' : '');
+            $nicepay->set('billingPostCd', in_array("billingPostCd", $request->input('billing')) ? '12870' : '');
+            $nicepay->set('billingCountry', in_array("billingCountry", $request->input('billing')) ? 'Indonesia' : '');
+        }
+
         $payMethod = $request->input('payMethod');
         $referenceNo = $request->input('referenceNo');
-        Log::info('requestCheckout. Start PayMethod: ' .$payMethod.' and Reference No : '.$referenceNo);
+        Log::info('requestCheckout. Start PayMethod: ' . $payMethod . ' and Reference No : ' . $referenceNo);
+        
         if (isset($payMethod)) {
             Log::info('requestCheckout. Populate Data');
             // Populate Mandatory parameters to send
@@ -43,17 +57,14 @@ class CheckoutController extends Controller
 
             $nicepay->set('amt', $request->input('amt')); // Total gross amount
             $nicepay->set('description', 'Payment of Invoice No ' . $nicepay->get('referenceNo')); // Transaction description
-            
-            $nicepay->set('bankCd', $request->input('code'));
-            $nicepay->set('billingNm', 'John Doe'); // Customer name
-            $nicepay->set('billingPhone', '02112345678'); // Customer phone number
-            $nicepay->set('billingEmail', 'john@example.com'); // Customer Email
-            $nicepay->set('billingAddr', 'Jl. Jend. Sudirman No. 28');
-            $nicepay->set('billingCity', 'Jakarta Pusat');
-            $nicepay->set('billingState', 'DKI Jakarta');
-            $nicepay->set('billingPostCd', '10210');
-            $nicepay->set('billingCountry', 'Indonesia');
 
+            $nicepay->set('bankCd', $request->input('code'));
+
+            billingCategory($nicepay, $request);
+
+            // Log::info('requestCheckout. billing check : ' . $nicepay->get('billingNm'));
+
+            // Delivery Category
             $nicepay->set('deliveryNm', 'John Doe'); // Delivery name
             $nicepay->set('deliveryPhone', '02112345678');
             $nicepay->set('deliveryAddr', 'Jl. Jend. Sudirman No. 28');
@@ -61,7 +72,8 @@ class CheckoutController extends Controller
             $nicepay->set('deliveryState', 'DKI Jakarta');
             $nicepay->set('deliveryPostCd', '10210');
             $nicepay->set('deliveryCountry', 'Indonesia');
-            $timeStampRegist = date('Ymd').date('His');
+
+            $timeStampRegist = date('Ymd') . date('His');
             $nicepay->set('timeStamp', $timeStampRegist);
             // Send Data
             Log::info('requestCheckout. Request API');
@@ -76,11 +88,18 @@ class CheckoutController extends Controller
                 return response()->json([$responseApi]);
             } elseif (isset($responseApi->resultCd)) {
                 $msg = $responseApi->resultCd . " : " . $responseApi->resultMsg;
-                Log::error('requestCheckout. Response Error : ' .$msg);
+                Log::error('requestCheckout. Response Error : ' . $msg);
                 return response()->json([
                     $responseApi
                 ]);
-            } else {
+            }else if (isset($responseApi->data->resultCd) && $responseApi->data->resultCd == "0000"){
+                Log::info('requestCheckout. Response API V1 Professional');
+                // header("Location: ".$responseApi->data->requestURL."?tXid=".$responseApi->tXid);
+                // return redirect()->away($responseApi->data->requestURL ."?tXid=" . $responseApi->tXid);
+                return response()->json([
+                    $responseApi
+                ]);
+            }else {
                 Log::error('requestCheckout. Response Error. Connection Timeout. Please Try Again!');
                 $request->session()->flash('msg', 'Connection Timeout. Please Try Again!');
                 return redirect()->route('otherError');
@@ -94,7 +113,7 @@ class CheckoutController extends Controller
 
             return response()->json([$responseOtherError]);
         }
-    
+
         return response()->json($this->response);
     }
 }

@@ -48,7 +48,7 @@ export default {
   methods: {
     loadData() {
       // fetch data dari api menggunakan axios
-      axios.get("http://localhost:8000/inquiry").then(response => {
+      axios.get("http://localhost:8000/getData").then(response => {
         // mengirim data hasil fetch ke varibale array persons
         this.transactions = response.data;
       });

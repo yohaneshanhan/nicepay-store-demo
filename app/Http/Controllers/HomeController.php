@@ -15,6 +15,12 @@ class HomeController extends Controller
         return view('layouts.vue');
     }
 
+    public function inquiry(){
+
+        // return view('layouts/index');
+        return view('layouts.vue');
+    }
+
     public function getData(){
         return Trans::all();
     }

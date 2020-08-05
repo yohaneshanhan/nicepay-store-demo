@@ -14,15 +14,23 @@ include_once(app_path() . '\Library\Nicepay\NicepayConfig.php');
 |
 */
 
-Route::get('/checkout', 'HomeController@home');
+// Route::fallback(function() {
+//     return 'Hm, why did you land here somehow?';
+// });
 
-Route::get('/inquiry','HomeController@getData');
+
+
+Route::get('/checkout', 'HomeController@home');
+Route::get('/inquiry', 'HomeController@inquiry');
+
+Route::get('/getData','HomeController@getData');
 Route::get('/getDetail/{id}','HomeController@getDetail');
 
 Route::post('/sendRequestCheckout', 'CheckoutController@requestCheckout');
 Route::post('/sendRequestInquiry', 'CheckStatusController@requestInquiry');
 Route::post('/sendRequestCancel', 'CancelController@requestCancel');
 
+Route::get('/{any}', 'HomeController@home')->where('any', '.*');
 
 Route::get('/otherError', function(Request $request){
     return view ('otherError', $request->input());
@@ -33,6 +41,8 @@ Route::any('result',function(Request $request){
     // Session::flash('merchantKey', NICEPAY_MERCHANT_KEY);
     return view ('result', $request->input());
 });
+
+
 // Route::get('/{any}', 'HomeController@home')->where('any','.*');
 // Route::get('/user', 'HomeController@home');
 

@@ -12,10 +12,11 @@ Vue.use(VueRouter)
 export default {
     mode: 'history',
     routes: [
+
         {
             path: '/checkout',
             name: 'checkout',
-            component: Checkout    
+            component: Checkout
         },
         {
             path: '/inquiry',
@@ -36,6 +37,12 @@ export default {
             path: '/otherError',
             name: 'otherError',
             component: OtherError
+        },
+        {
+            path: '*',
+            redirect: '/checkout',
+            // name: 'checkout',
+            // component: Checkout
         }
     ],
     linkActiveClass: "active",

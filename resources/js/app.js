@@ -61,8 +61,10 @@ import './bootstrap'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './router'
+import moment from 'moment'
+
 Vue.use(VueRouter)
-// import App from './layouts/App.vue'
+    // import App from './layouts/App.vue'
 
 Vue.component('navigation', require('./views/section/Navigation').default);
 Vue.component('copyright', require('./views/section/Footer').default);
@@ -73,11 +75,7 @@ Vue.component('copyright', require('./views/section/Footer').default);
 //     render: h => h(App)
 // })
 const app = new Vue({
-  el: '#app',
-  router: new VueRouter(routes),
-  
+    el: '#app',
+    router: new VueRouter(routes),
+
 });
-
-
-
-

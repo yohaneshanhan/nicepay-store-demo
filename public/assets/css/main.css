@@ -102,64 +102,6 @@ body {
 }
 
 
-/* ==================== ACCORDION ==================== */
-
-.accor {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-}
-
-.accor-pad {
-    padding-right: 15px;
-    padding-left: 15px;
-}
-
-.collapsible {
-    background-color: #ebf6f5 !important;
-    color: #5cbdb9;
-    cursor: pointer;
-    /* padding: 18px; */
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    /* font-size: inherit ; */
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    letter-spacing: normal;
-    text-rendering: auto;
-    word-spacing: normal;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    display: relative;
-}
-
-.colActive {
-    background-color: #ebf6f5 !important;
-}
-
-.collapsible:hover {
-    background-color: #fff !important;
-}
-
-.collapsible:after {
-    content: '\276F';
-    color: #5cbdb9;
-    /* font-weight: bold; */
-    font-weight: 500;
-    float: right;
-    margin-left: 5px;
-    transform: rotate(0);
-}
-
-.colActive:after {
-    transform: rotate(90deg);
-}
-
-
 /* ==================== NICEPAY CUSTOM ==================== */
 
 ::-webkit-scrollbar {
@@ -190,10 +132,6 @@ select {
 .han-input:focus,
 select:focus {
     outline: none;
-}
-
-.opacity {
-    background: rgba(235, 246, 245, 0);
 }
 
 
@@ -227,13 +165,11 @@ select:focus~.han-label,
 select:valid~.han-label {
     top: -20px;
     /* font-size: 16px; */
-    /* color:#4CE2AB; */
-    /* color:#00b5ad; */
     color: #5cbdb9;
 }
 
 
-/* ====== BOTTOM BARS ====== */
+/* ====== BOTTOM INPUT BARS ====== */
 
 .han-bar {
     position: relative;
@@ -303,7 +239,7 @@ select[type="text"]:focus~.han-bar:after {
     background-color: transparent;
     font-weight: bold !important;
     /* border-color: #5cbdb9; */
-    border: 1px solid #5cbdb9 !important;
+    border: 1px solid #ebf6f5 !important;
     /* border-color: #4CE2AB; */
 }
 
@@ -312,6 +248,11 @@ select[type="text"]:focus~.han-bar:after {
     border: 2px solid #5cbdb9 !important;
     /* transition:0.2s ease all;  */
     outline: 0;
+}
+
+.btn-table-size {
+    display: inherit !important;
+    font-size: 14px !important;
 }
 
 .han-width {
@@ -348,11 +289,7 @@ select[type="text"]:focus~.han-bar:after {
 }
 
 .han-container {
-    /* background-color: #eaecee ; */
-    /* background-color: #ebf6f5 ; */
     background-color: #f8fbfd;
-    /* background-color: red ;  */
-    /* background-color: #fff ;  */
 }
 
 .han-layout {
@@ -361,14 +298,14 @@ select[type="text"]:focus~.han-bar:after {
 
 .han-layout-opacity {
     background-color: rgba(255, 255, 255, 0.5);
-    /* border-right: 2px solid #dee2e6 !important; */
-    /* box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.1); */
-    /* background-color: rgba(235, 246, 245, 0.5) ; */
-    /* background-color: #f8fbfd ; */
 }
 
 .han-opacity {
     opacity: 0.25;
+}
+
+.opacity {
+    background: rgba(235, 246, 245, 0);
 }
 
 
@@ -506,7 +443,90 @@ select[type="text"]:focus~.han-bar:after {
 }
 
 
-/* ====== TOGGLE ====== */
+/* ==================== ACCORDION ==================== */
+
+.accor {
+    position: relative;
+    width: 100%;
+    min-height: 1px;
+}
+
+.accor-pad {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.collapsible {
+    background-color: #ebf6f5 !important;
+    color: #5cbdb9;
+    cursor: pointer;
+    /* padding: 18px; */
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    /* font-size: inherit ; */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: normal;
+    text-rendering: auto;
+    word-spacing: normal;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: relative;
+}
+
+.han-btn-col-1 {
+    display: inline-block;
+    margin-right: 60% !important;
+    /* background-color: transparent !important; */
+}
+
+.han-btn-col-2 {
+    display: initial;
+    /* width: 20%; */
+    padding-left: 15px;
+    /* background-color: transparent !important; */
+}
+
+.colActive {
+    background-color: #ebf6f5 !important;
+}
+
+.collapsible:hover,
+.han-btn-col-1:hover,
+.han-btn-col-2:hover {
+    background-color: #fbe3e8 !important;
+}
+
+
+/* .collapsible:hover>.addhover {
+    background-color: #fbe3e8 !important;
+} */
+
+.collapsible:after {
+    content: '\276F';
+    color: #5cbdb9;
+    /* font-weight: bold; */
+    font-weight: 500;
+    float: right;
+    margin-left: 5px;
+    transform: rotate(0);
+}
+
+.colActive:after {
+    transform: rotate(90deg);
+}
+
+.remove-content:after {
+    content: none !important;
+    color: #ebf6f5 !important;
+}
+
+
+/* ====== TOGGLE CHECKBOX ====== */
 
 .switch {
     position: relative;
@@ -547,11 +567,19 @@ select[type="text"]:focus~.han-bar:after {
 }
 
 input:checked+.slider {
-    background-color: #2196F3;
+    background-color: #5cbdb9;
+}
+
+input:checked+.slider.selectedCategory {
+    background-color: #fbe3e8 !important;
 }
 
 input:focus+.slider {
-    box-shadow: 0 0 1px #2196F3;
+    box-shadow: 0 0 1px #5cbdb9;
+}
+
+input:focus+.slider.selectedCategory {
+    box-shadow: 0 0 1px #fbe3e8 !important;
 }
 
 input:checked+.slider:before {
@@ -644,10 +672,6 @@ img {
 
 svg:not(:root) {
     overflow: hidden;
-}
-
-table {
-    border-collapse: collapse;
 }
 
 caption {
@@ -1083,9 +1107,11 @@ a>code {
     max-width: 58.33333%;
 }
 
-.col-8 {
+.col-8,
+.han-btn-col-1 {
     flex: 0 0 66.66667%;
     max-width: 66.66667%;
+    /* min-width: 66.66667%; */
 }
 
 .col-9 {
@@ -1781,25 +1807,49 @@ a>code {
     }
 }
 
+table {
+    background: pink;
+    border: 0;
+    border-collapse: separate;
+    border-spacing: 0 0px !important;
+}
+
+thead {
+    display: table-header-group;
+    vertical-align: unset;
+    border-color: unset;
+}
+
+thead tr th {
+    border-bottom: 1px solid #5cbdb9 !important;
+    border-top: 1px solid transparent !important;
+    border-collapse: separate;
+    border-spacing: 5px 5px !important;
+}
+
 .table {
     width: 100%;
     max-width: 100%;
     margin-top: 1rem;
     margin-bottom: 1rem;
     background-color: transparent;
+    border-top: 1px solid #5cbdb9 !important;
 }
 
 .table th,
 .table td {
     padding: 0.35rem;
-    /* vertical-align: top; */
+    vertical-align: top;
     border-top: 1px solid #dee2e6;
 }
 
-.table thead th {
+
+/* .table thead th {
     vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6;
-}
+    border-top: 0px solid #5cbdb9 !important;
+    border-bottom: 0px solid #5cbdb9 !important;
+    border-spacing: 0px !important;
+} */
 
 .table tbody+tbody {
     border-top: 2px solid #dee2e6;

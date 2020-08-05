@@ -19,7 +19,7 @@ namespace App\Library\Nicepay;
  *
  * ____________________________________________________________
  */
-
+use Illuminate\Support\Facades\Log;
 include_once ('NicepayLogger.php');
 include_once ('NicepayConfig.php');
 
@@ -42,11 +42,11 @@ class NicepayRequestor {
 
     public function operation ($env, $apiVersion) {
         $api = '';
-        if($apiVersion == "V1_PRO"){
+        if($apiVersion == "V1_Pro"){
             $api = NICEPAY_V1PRO;
-        }else if($apiVersion == "V1_ENT"){
+        }else if($apiVersion == "V1_Ent"){
             $api = NICEPAY_V1ENT;
-        }else if($apiVersion == "V1_ENT_EWALLET"){
+        }else if($apiVersion == "V1_Ent_Ewallet"){
             $api = NICEPAY_V1ENT_EWALLET;
         }else if($apiVersion == "V2"){
             $api = NICEPAY_V2_REGISTRATION;
@@ -97,7 +97,7 @@ class NicepayRequestor {
         $this->headers = "";
         $this->body = "";
         $postdata = json_encode($data);
-        //var_dump($postdata);die;
+        Log::info('NicepayRequestor. request V2 : '.$postdata);
 
         /* Write */
         $request = "POST " . $uri . " HTTP/1.0\r\n";
@@ -178,8 +178,92 @@ class NicepayRequestor {
         $uri = parse_url($this->apiUrl, PHP_URL_PATH);
         $this->headers = "";
         $this->body = "";
+        $postdata = $this->buildQueryString ($data);
+        Log::info('NicepayRequestor. request V1 Enterpise : '.$postdata);
+
+        /* Write */
+        $request = "POST " . $uri . " HTTP/1.0\r\n";
+        $request .= "Connection: close\r\n";
+        $request .= "Host: " . $host . "\r\n";
+        $request .= "Content-type: application/x-www-form-urlencoded\r\n";
+        $request .= "Content-length: " . strlen ( $postdata ) . "\r\n";
+        $request .= "Accept: */*\r\n";
+        $request .= "\r\n";
+        $request .= $postdata . "\r\n";
+        $request .= "\r\n";
+        
+        if($this->sock) {
+           
+            fwrite ( $this->sock, $request );
+
+            /* Read */
+            stream_set_blocking ($this->sock, FALSE);
+
+            $atStart = true;
+            $IsHeader = true;
+            $timeout = false;
+            $start_time = time ();
+            while ( ! feof ($this->sock ) && ! $timeout) {
+                $line = fgets ($this->sock, 4096);
+                $diff = time () - $start_time;
+                if ($diff >= NICEPAY_TIMEOUT_READ) {
+                    $timeout = true;
+                }
+                if ($IsHeader) {
+                    if ($line == "") // for stream_set_blocking
+                    {
+                        continue;
+                    }
+                    if (substr ($line, 0, 2) == "\r\n") // end of header
+                    {
+                        $IsHeader = false;
+                        continue;
+                    }
+                    $this->headers .= $line;
+                    if ($atStart) {
+                        $atStart = false;
+                        if (! preg_match ( '/HTTP\/(\\d\\.\\d)\\s*(\\d+)\\s*(.*)/', $line, $m )) {
+                            $this->errormsg = "Status code line invalid: " . htmlentities ( $line );
+                            fclose ( $this->sock );
+                            return false;
+                        }
+                        $http_version = $m [1];
+                        $this->status = $m [2];
+                        $status_string = $m [3];
+                        continue;
+                    }
+                } else {
+                    $this->body .= $line;
+                }
+            }
+            fclose ( $this->sock );
+
+            if ($timeout) {
+                $this->errorcode = NICEPAY_READ_TIMEOUT_ERR;
+                $this->errormsg = "Socket Timeout(" . $diff . "SEC)";
+                return false;
+            }
+            // return true
+            if(!$this->parseResult($this->body)) {
+                $this->body =   substr($this->body, 4);
+    //            var_dump($this->body);
+    //            exit();
+                return $this->parseResult($this->body);
+            }
+            return $this->parseResult($this->body);
+        } else {
+            //echo "Connection Timeout. Please retry.";
+            return false;
+        }
+    }
+
+    public function apiRequestV1Pro($data) {
+        $host = parse_url($this->apiUrl, PHP_URL_HOST);
+        $uri = parse_url($this->apiUrl, PHP_URL_PATH);
+        $this->headers = "";
+        $this->body = "";
         $postdata = json_encode($data);
-        //var_dump($postdata);die;
+        Log::info('NicepayRequestor. request V1 Pro : '.$postdata);
 
         /* Write */
         $request = "POST " . $uri . " HTTP/1.0\r\n";
@@ -255,86 +339,25 @@ class NicepayRequestor {
         }
     }
 
-    public function apiRequestV1Pro($data) {
-        $host = parse_url($this->apiUrl, PHP_URL_HOST);
-        $uri = parse_url($this->apiUrl, PHP_URL_PATH);
-        $this->headers = "";
-        $this->body = "";
-        $postdata = json_encode($data);
-        //var_dump($postdata);die;
-
-        /* Write */
-        $request = "POST " . $uri . " HTTP/1.0\r\n";
-        $request .= "Connection: close\r\n";
-        $request .= "Host: " . $host . "\r\n";
-        $request .= "Content-apiVersion: application/json\r\n";
-        $request .= "Content-length: " . strlen ( $postdata ) . "\r\n";
-        $request .= "Accept: */*\r\n";
-        $request .= "\r\n";
-        $request .= $postdata . "\r\n";
-        $request .= "\r\n";
-        if($this->sock) {
-            fwrite ( $this->sock, $request );
-
-            /* Read */
-            stream_set_blocking ($this->sock, FALSE);
-
-            $atStart = true;
-            $IsHeader = true;
-            $timeout = false;
-            $start_time = time ();
-            while ( ! feof ($this->sock ) && ! $timeout) {
-                $line = fgets ($this->sock, 4096);
-                $diff = time () - $start_time;
-                if ($diff >= NICEPAY_TIMEOUT_READ) {
-                    $timeout = true;
-                }
-                if ($IsHeader) {
-                    if ($line == "") // for stream_set_blocking
-                    {
-                        continue;
+    public function buildQueryString($data) {
+        $querystring = '';
+        if (is_array ($data)) {
+            foreach ($data as $key => $val) {
+                if (is_array ($val)) {
+                    foreach ($val as $val2) {
+                        if ($key != "key")
+                            $querystring .= urlencode ($key) . '=' . urlencode ( $val2 ) . '&';
                     }
-                    if (substr ($line, 0, 2) == "\r\n") // end of header
-                    {
-                        $IsHeader = false;
-                        continue;
+                    } else {
+                    if ($key != "key")
+                        $querystring .= urlencode ($key) . '=' . urlencode ($val) . '&';
                     }
-                    $this->headers .= $line;
-                    if ($atStart) {
-                        $atStart = false;
-                        if (! preg_match ( '/HTTP\/(\\d\\.\\d)\\s*(\\d+)\\s*(.*)/', $line, $m )) {
-                            $this->errormsg = "Status code line invalid: " . htmlentities ( $line );
-                            fclose ( $this->sock );
-                            return false;
-                        }
-                        $http_version = $m [1];
-                        $this->status = $m [2];
-                        $status_string = $m [3];
-                        continue;
-                    }
-                } else {
-                    $this->body .= $line;
-                }
             }
-            fclose ( $this->sock );
-
-            if ($timeout) {
-                $this->errorcode = NICEPAY_READ_TIMEOUT_ERR;
-                $this->errormsg = "Socket Timeout(" . $diff . "SEC)";
-                return false;
-            }
-            // return true
-            if(!$this->parseResult($this->body)) {
-                $this->body =   substr($this->body, 4);
-    //            var_dump($this->body);
-    //            exit();
-                return $this->parseResult($this->body);
-            }
-            return $this->parseResult($this->body);
+        $querystring = substr ($querystring, 0, - 1);
         } else {
-            //echo "Connection Timeout. Please retry.";
-            return false;
+            $querystring = $data;
         }
+            return $querystring;
     }
 
 

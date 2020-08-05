@@ -27,7 +27,7 @@ class NicepayLib {
     public function __construct() {
         $this->request = new NicepayRequestor();
         $this->log = new NicepayLogger();
-        Log::info('NicepayLib. Start 1');   
+        Log::info('NicepayLib. Start __construct');   
     }
 
     // Set POST parameter name and its value
@@ -57,9 +57,12 @@ class NicepayLib {
         $this->set('merchantKey', $this->merchantKey);
         $this->set('timeStamp', $this->get('timeStamp'));
         
-        if($this->get('apiVersion') == "V1_PRO"){
-            $this->set('merchantToken', $this->merchantToken());
-        }else if ($this->get('apiVersion') == "V1_ENT"){
+        if($this->get('apiVersion') == "V1_Pro"){
+            unset($this->requestData['timeStamp']);
+            $this->set('callBackUrl', $this->callBackUrl);
+            $this->set('merchantToken', $this->merchantTokenV1Ent());
+        }else if ($this->get('apiVersion') == "V1_Ent"){
+            unset($this->requestData['timeStamp']);
             $this->set('merchantToken', $this->merchantTokenV1Ent());
         }else if($this->get('apiVersion') == "V2"){
             $this->set('merchantToken', $this->merchantTokenV2());
@@ -75,7 +78,7 @@ class NicepayLib {
         unset($this->requestData['merchantKey']);
         
         $this->set('dbProcessUrl', $this->dbProcessUrl);
-        //$this->set('callBackUrl', $this->callBackUrl);
+        
         $this->set('userIP', $this->getUserIP());
         $this->set('goodsNm', $this->get('description'));
         $this->set('notaxAmt', '0');
@@ -97,10 +100,24 @@ class NicepayLib {
         $this->request->openSocket();
         Log::info('requestVA. Open Socket Success');
         
-        unset($this->requestData['env']);
-        unset($this->requestData['apiVersion']);
-        $this->resultData = $this->request->apiRequest($this->requestData);
-        Log::info('requestVA. resultData');
+        // unset($this->requestData['env']);
+        // unset($this->requestData['apiVersion']);
+
+
+        if($this->get('apiVersion') == "V1_Pro"){
+            $this->unsetData();
+            $this->resultData = $this->request->apiRequestV1Ent($this->requestData);
+        }else if ($this->get('apiVersion') == "V1_Ent"){
+            Log::info('requestVA. V1 Enterprise');
+            $this->unsetData();
+            $this->resultData = $this->request->apiRequestV1Ent($this->requestData);
+        }else if($this->get('apiVersion') == "V2"){
+            Log::info('requestVA. V2');
+            $this->unsetData();
+            $this->resultData = $this->request->apiRequest($this->requestData);
+        }
+        $postdata = json_encode($this->resultData);
+        Log::info('requestVA. resultData : '.$postdata);
         
         unset($this->requestData);
         return $this->resultData;
@@ -162,6 +179,11 @@ class NicepayLib {
             Log::error('checkParam. errorNo : '.$this->getError($errorNo));
             die($this->getError($errorNo));
         }
+    }
+
+    public function unsetData(){
+        unset($this->requestData['env']);
+        unset($this->requestData['apiVersion']);
     }
 
     public function merchantToken() {
