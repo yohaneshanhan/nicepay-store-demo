@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-include_once(app_path() . '\Library\Nicepay\NicepayConfig.php');
+include_once(app_path() . '/Library/Nicepay/NicepayConfig.php');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
